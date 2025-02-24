@@ -7,3 +7,14 @@ Si tu as une page qui prend des entrées utilisateur, comme un champ de connexio
 - Utiliser des requêtes préparées avec des paramètres liés.
 - Valider et filtrer toutes les entrées des utilisateurs.
 - Utiliser des comptes avec des privilèges limités sur la base de données.
+
+# Medium - Cross-Site Scripting (XSS)
+## Définition:
+Le Cross-Site Scripting (XSS) permet à un attaquant d'injecter du code JavaScript malveillant dans une page web, qui sera ensuite exécuté dans le navigateur des utilisateurs lorsqu'ils consultent la page.
+## Exploitation:
+Par exemple, un attaquant peut injecter ce code dans un champ de commentaire vulnérable sur un site web: ```<script>alert('XSS')</script>```
+Cela affichera une alerte dans le navigateur de la victime.
+## Solution :
+- Encoder toutes les sorties des données utilisateurs (par exemple, utiliser htmlspecialchars() en PHP).
+- Mettre en place une politique de sécurité du contenu (CSP) pour restreindre les scripts non autorisés.
+- Valider et assainir les entrées utilisateur, notamment les champs de formulaire.
