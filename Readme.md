@@ -31,3 +31,18 @@ Cela chargerait un fichier PHP malveillant depuis un serveur externe.
 - N'accepter que des fichiers locaux pour l'inclusion et les valider.
 - Utiliser une liste blanche de fichiers autorisés à inclure.
 
+# Comment résoudre ces vulnérabilités
+## SQL Injection (SQLi)
+1) Utiliser des requêtes préparées et des paramètres liés pour éviter l'injection.
+2) Valider et filtrer toutes les entrées des utilisateurs.
+3) Donner des privilèges limités aux comptes de la base de données (par exemple, en lecture seule pour les requêtes publiques).
+
+## XSS (Cross-Site Scripting)
+1) Encoder toutes les sorties pour éviter que le JavaScript soit exécuté (par exemple, avec htmlspecialchars()).
+2) Mettre en place une Content Security Policy (CSP) pour limiter les sources de scripts autorisés.
+3) Valider et filtrer toutes les entrées utilisateur dans les formulaires et autres champs.
+
+## RFI (Remote File Inclusion)
+1) Désactiver allow_url_include dans PHP.
+2) Valider soigneusement les fichiers acceptés pour inclusion (n'accepter que des fichiers locaux).
+3) Utiliser une liste blanche des fichiers autorisés à être inclus.
